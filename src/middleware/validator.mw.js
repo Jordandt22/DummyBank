@@ -87,6 +87,19 @@ module.exports = {
       res.status(422).json({ message: "Invalid data.", formErrors: errors });
     }
   },
+  IDParamValidator: async (req, res, next) => {
+    const { id } = req.params;
+    try {
+      await IDCredSchema.validate({
+        id,
+      });
+
+      next();
+    } catch (err) {
+      const { errors } = err;
+      res.status(422).json({ message: "Invalid data.", formErrors: errors });
+    }
+  },
   bankAccountValidator: async (req, res, next) => {
     const { newAccount } = req.body;
 

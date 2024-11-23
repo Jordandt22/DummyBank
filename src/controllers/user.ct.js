@@ -12,7 +12,7 @@ module.exports = {
 
     res.status(200).json({ user: newUser });
   },
-  getUser: async (req, res) => {
+  authUser: async (req, res) => {
     const { email, password } = req.body;
     try {
       const user = await User.findOne({ email });
@@ -24,6 +24,20 @@ module.exports = {
       }
 
       res.status(401).json({ message: "Invalid Credentials." });
+    } catch (err) {
+      res.status(500).json({
+        serverMessage: err,
+        message: "A problem occured on the server.",
+      });
+    }
+  },
+  getUser: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const user = await User.findById(id);
+      if (!user) return res.status(404).json({ message: "User Not Found." });
+
+      return res.status(200).json({ user });
     } catch (err) {
       res.status(500).json({
         serverMessage: err,
