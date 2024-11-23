@@ -1,5 +1,10 @@
 const userRouter = require("express-promise-router")();
-const { createUser, getUser, deleteUser } = require("../controllers/user.ct");
+const {
+  createUser,
+  getUser,
+  deleteUser,
+  authAndGetUser,
+} = require("../controllers/user.ct");
 const { authUser } = require("../middleware/user.mw");
 const {
   userCredValidator,
@@ -8,7 +13,7 @@ const {
 
 userRouter.post("/", userCredValidator(false), createUser);
 
-userRouter.post("/auth", userCredValidator(false), authUser);
+userRouter.post("/auth", userCredValidator(false), authAndGetUser);
 
 userRouter.get("/:id", IDParamValidator, getUser);
 

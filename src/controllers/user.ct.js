@@ -12,7 +12,7 @@ module.exports = {
 
     res.status(200).json({ user: newUser });
   },
-  authUser: async (req, res) => {
+  authAndGetUser: async (req, res) => {
     const { email, password } = req.body;
     try {
       const user = await User.findOne({ email });
