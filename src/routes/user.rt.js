@@ -7,7 +7,7 @@ userRouter.post("/", userCredValidator(false), createUser);
 
 userRouter.post("/auth", userCredValidator(false), getUser);
 
-userRouter.get("/:id", userCredValidator(true), getUser);
+userRouter.post("/:id", userCredValidator(true), getUser);
 
 userRouter.delete("/:id", userCredValidator(true), authUser, deleteUser);
 
