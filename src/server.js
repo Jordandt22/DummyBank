@@ -24,6 +24,7 @@ app.use(express.json());
 if (notProduction) {
   app.use(morgan("dev"));
 } else {
+  app.use(morgan("combined"));
   app.enable("trust proxy");
   app.set("trust proxy", 1);
 }
