@@ -30,6 +30,7 @@ const TransactionSchema = new mongoose.Schema({
   },
   category: {
     type: String,
+    uppercase: true,
     enum: [
       transactionCategories.PURCHASE,
       transactionCategories.TRANSFER,
@@ -44,6 +45,7 @@ const TransactionSchema = new mongoose.Schema({
 const BankAccountSchema = new mongoose.Schema({
   type: {
     type: String,
+    uppercase: true,
     enums: [bankAccountTypes.CHECKING, bankAccountTypes.SAVINGS],
   },
   currentBalance: {
@@ -62,6 +64,7 @@ const BankAccountSchema = new mongoose.Schema({
 const CardSchema = new mongoose.Schema({
   type: {
     type: String,
+    uppercase: true,
     enums: [cardTypes.CREDIT],
   },
   currentBalance: {

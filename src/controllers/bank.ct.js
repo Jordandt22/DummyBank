@@ -1,5 +1,13 @@
 const User = require("../models/db");
 
+const roundNums = (curBalance, transaction) => {
+  const value = curBalance + transaction;
+
+  return value < 0
+    ? Math.ceil(value * 100) / 100
+    : Math.floor(value * 100) / 100;
+};
+
 module.exports = {
   // ---- Bank Accounts ----
   addNewAccount: async (req, res) => {
@@ -59,7 +67,10 @@ module.exports = {
           });
 
         acc.transactions.push({ date: new Date(), ...newTransaction });
-        acc.currentBalance += newTransaction.amount;
+        acc.currentBalance = roundNums(
+          acc.currentBalance,
+          newTransaction.amount
+        );
       }
 
       return acc;
@@ -86,7 +97,7 @@ module.exports = {
         const updatedTransactions = acc.transactions.filter((t) => {
           if (t._id.toString() === transactionID) {
             // Reverse the Transaction
-            acc.currentBalance += t.amount * -1;
+            acc.currentBalance = roundNums(acc.currentBalance, t.amount * -1);
           }
 
           return t._id.toString() !== transactionID;
@@ -169,7 +180,10 @@ module.exports = {
           });
 
         card.transactions.push({ date: new Date(), ...newTransaction });
-        card.currentBalance += newTransaction.amount * -1;
+        card.currentBalance = roundNums(
+          card.currentBalance,
+          newTransaction.amount * -1
+        );
       }
 
       return card;
@@ -196,7 +210,7 @@ module.exports = {
         const updatedTransactions = card.transactions.filter((t) => {
           if (t._id.toString() === transactionID) {
             // Reverse the Transaction
-            card.currentBalance += t.amount;
+            card.currentBalance = roundNums(card.currentBalance, t.amount);
           }
 
           return t._id.toString() !== transactionID;
