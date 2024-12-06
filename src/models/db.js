@@ -86,6 +86,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  userID: String,
   accounts: [BankAccountSchema],
   cards: [CardSchema],
 });

@@ -3,9 +3,10 @@ const User = require("../models/db");
 module.exports = {
   // User Actions
   createUser: async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, userID } = req.body;
 
     const newUser = await User.create({
+      userID,
       email,
       password,
     });
