@@ -3,10 +3,9 @@ const User = require("../models/db");
 module.exports = {
   // User Actions
   createUser: async (req, res) => {
-    const { email, password, userID } = req.body;
+    const { email, password } = req.body;
 
     const newUser = await User.create({
-      userID,
       email,
       password,
     });
@@ -17,6 +16,7 @@ module.exports = {
     const { email, password } = req.body;
     try {
       const user = await User.findOne({ email });
+
       if (!user) return res.status(404).json({ message: "User Not Found." });
 
       const { email: userEmail, password: userPassword } = user;

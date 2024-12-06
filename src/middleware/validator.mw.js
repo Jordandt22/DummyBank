@@ -1,7 +1,6 @@
 const { object, string, number, date } = require("yup");
 
 // ---- User Schemas ----
-
 const userCredSchema = object({
   email: string()
     .min(1, "An email is required.")
@@ -12,10 +11,6 @@ const userCredSchema = object({
     .min(8, "Password must be atleast 8 characters long.")
     .max(500, "Password exceeds the character limit (500).")
     .required("A password is required."),
-  userID: string()
-    .min(1, "User ID is required.")
-    .max(500, "Max character for User ID is 500.")
-    .required("A User ID is required."),
 });
 
 const IDCredSchema = object({
