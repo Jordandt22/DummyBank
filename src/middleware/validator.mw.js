@@ -12,7 +12,7 @@ const userCredSchema = object({
     .min(8, "Password must be atleast 8 characters long.")
     .max(500, "Password exceeds the character limit (500).")
     .required("A password is required."),
-    userID:  string()
+  userID: string()
     .min(1, "User ID is required.")
     .max(500, "Max character for User ID is 500.")
     .required("A User ID is required."),
@@ -26,7 +26,6 @@ const IDCredSchema = object({
 });
 
 // ---- Bank Schemas ----
-
 const bankAccountSchema = object({
   initialBalance: number()
     .min(0, "Min balance is 0.")
@@ -71,12 +70,10 @@ const cardSchema = object({
 module.exports = {
   userCredValidator: (includeID) => async (req, res, next) => {
     const { id } = req.params;
-    const { email, password } = req.body;
 
     try {
       await userCredSchema.validate({
-        email,
-        password,
+        ...req.body,
       });
 
       if (includeID) {
